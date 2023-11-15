@@ -1,0 +1,11 @@
+{
+  "name": "taquin",
+  "module": "index.js",
+  "scripts": {
+    "run": "node index.js"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "type": "module"
+}
