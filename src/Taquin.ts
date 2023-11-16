@@ -29,17 +29,22 @@ export default class Taquin {
 
   private checkGrid(grid : Array<Array<number>>) : Pair<number,number> {
     /* check if the grid is 3x3 */
-    if(grid.length != 3)
-      throw new Error("invalid grid : must be 3x3");
+    if(grid.length < 3)
+      throw new Error("invalid grid : must be at least 3x3");
 
+    const lengthRow = grid[0].length;
     /* check if the grid contains all the numbers from 0 to 8 */
     let index = new Pair<number, number>(0,0);
     let verif = [0,1,2,3,4,5,6,7,8]
+    
+    for(let i = 0; i < grid.length * lengthRow; ++i)
+      verif.push(i);
+
     for(let i = 0; i < grid.length; i++) {
       
       /* check if the grid is 3x3 */
-      if(grid[i].length != 3)
-        throw new Error("invalid grid : must be 3x3");
+      if(grid[i].length != lengthRow)
+        throw new Error("invalid grid : all row must be the same lenght");
       
       for(let j = 0; j < grid[i].length; j++) {
 
