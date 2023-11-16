@@ -25,6 +25,7 @@ export default class Taquin {
     }
   }
 
+  /* ======================= PRIVATE METHOD ==========================================*/
 
   private checkGrid(grid : Array<Array<number>>) : Pair<number,number> {
     /* check if the grid is 3x3 */
@@ -57,6 +58,7 @@ export default class Taquin {
     return index;
   }
 
+  /* ---------------------------------------------------------------------------------- */
 
   private canMove(value: number ) : Pair<boolean, Pair<number, number>> {
     if(value < 1 || value > 8)
@@ -80,6 +82,8 @@ export default class Taquin {
     return new Pair(dist ===1, index);
   }
 
+  /* ======================= PUBLIC METHOD ========================================== */
+  
   public move(value : number) {
     try {
 
@@ -93,14 +97,20 @@ export default class Taquin {
       /* move the piece */
       this._grid[this._indexOfBlank.first][this._indexOfBlank.second] = value;
       this._grid[checkMove.second.first][checkMove.second.second] = 0;
+      Pair.swap(this._indexOfBlank, checkMove.second);
       
       this.render();
+      return true
     } catch (error) {
-      console.log(error)
+      console.error("index out of range");
+      return false
     }
   }
 
+  /* ---------------------------------------------------------------------------------- */
+
   public render() {
+    console.clear()
     for(let row of this._grid)
     {
       let str : string = "| ";
@@ -110,10 +120,30 @@ export default class Taquin {
       console.log(str);
       console.log("+---+---+---+")
     }
-
   }
+
+  /* ---------------------------------------------------------------------------------- */
+
+  public isWin() : boolean {
+    const solution = [
+      [1,2,3],
+      [4,5,6],
+      [7,8,0]
+    ];
+
+    for(let i = 0; i < 3; ++i)
+      for(let j = 0; j < 3; ++j)
+        if(this._grid[i][j] != solution[i][j])
+          return false;
+
+    return true;
+  }
+
+
+  /* ======================= GETTERS ========================================== */
 
   get grid(){
     return this._grid;
   }
+
 }

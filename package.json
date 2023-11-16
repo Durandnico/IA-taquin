@@ -2,6 +2,7 @@
   "name": "taquin",
   "module": "src/**/*",
   "devDependencies": {
+    "@types/inquirer": "^9.0.7",
     "bun-types": "latest"
   },
   "peerDependencies": {
@@ -9,7 +10,10 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "start" : "npx ts-node --esm ./src/main.ts"
+    "start": "npx ts-node --esm ./src/main.ts"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "inquirer": "^9.2.12"
+  }
 }
