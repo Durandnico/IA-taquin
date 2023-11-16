@@ -8,6 +8,7 @@ export default class Taquin {
     if(grid) {
       try {
         this._indexOfBlank = this.checkGrid(grid);
+        this._grid = grid;
       } catch (error) {
         console.log(error);
         throw error;
@@ -34,8 +35,11 @@ export default class Taquin {
 
     const lengthRow = grid[0].length;
     /* check if the grid contains all the numbers from 0 to 8 */
-    let index = new Pair<number, number>(0,0);
-    let verif = [0,1,2,3,4,5,6,7,8]
+    let index = new Pair<number, number>(0,0);    
+    let verif = [];
+    for(let i = 0; i < grid.length; ++i )
+      for(let j = 0; j < grid[i].length; ++j)
+        verif.push(i*grid.length + j);
     
     for(let i = 0; i < grid.length * lengthRow; ++i)
       verif.push(i);
