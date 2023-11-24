@@ -1,5 +1,3 @@
-import { spawn } from "child_process";
-
 export default class Pair<A, B>{
   private _first:A
   private _second:B
@@ -26,8 +24,8 @@ export default class Pair<A, B>{
   }
 
   public static swap<A,B>(vec : Pair<A,B>, vec2 : Pair<A,B>) {
-    let tmp : A = vec.first;
-    let tmp2 : B= vec.second;
+    let tmp: A = vec.first;
+    let tmp2: B = vec.second;
 
     vec.first = vec2.first;
     vec.second = vec2.second;
