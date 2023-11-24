@@ -1,15 +1,30 @@
 # taquin
 
-To install dependencies:
+## Pré-requis:
 
+nodeJs (bun or npm)
+
+
+## To install dependencies:
+
+with bun :
 ```bash
 bun install
 ```
 
-To run:
-
+with npm :
 ```bash
-bun run index.ts
+npm install
 ```
 
-This project was created using `bun init` in bun v1.0.7. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## To run:
+
+with bun
+```bash
+bun start
+```
+
+with npm
+```bash
+npm run start
+```
