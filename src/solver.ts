@@ -60,7 +60,7 @@ function hash(grid: Array<Array<number>>) : string {
 
   for(let row of grid)
     for(let val of row)
-      response += val;
+      response += '_' + val;
 
   return response;
 }
@@ -77,14 +77,16 @@ type Node =  {
 };
 
 
-export default function Astar (heuristicFct : Function , game : Taquin) : number[] {
-  let save : Map<string, Node> = new Map();
-  let toCheck : Map<string,Node> = new Map();
-  let find : string | null = null;
-  
+export default function Astar (heuristicFct : Function , game : Taquin) : Pair<number,number[]> {
+  let save : Map<string, Node> = new Map(); // map of all the moves already played
+  let toCheck : Map<string,Node> = new Map(); // map of all the moves to play
+  let find : string | null = null; // response variable
+  let numberOfChecks: number = 0; // counter of moves
+
   toCheck.set(hash(game.grid), {parent: null, move:0, heuristic_g: heuristicFct(game.grid), depth_h: 0, grid: game.grid, f_cost: heuristicFct(game.grid)})
   while(find === null && toCheck.size) {
-    
+    console.log(++numberOfChecks);
+
     /* find the smallest f_cost of the array (TODO : and smallest g_cost) */
     let target : Node = Array.from(toCheck.values())[0];
     for(let node of toCheck.values()) 
@@ -96,6 +98,7 @@ export default function Astar (heuristicFct : Function , game : Taquin) : number
     const id = hash(target.grid); 
     toCheck.delete(id);
     save.set(id, target);
+    console.log(id);
 
     for(let move of nextMoves(target.grid)) {
       const move_id: string = hash(move.second);
@@ -110,7 +113,7 @@ export default function Astar (heuristicFct : Function , game : Taquin) : number
           backtrack = backtrack!.parent;
         }
 
-        return response;
+        return new Pair<number, number[]>(numberOfChecks, response);
       } 
 
       /* if move has already been test, dump and go next */
@@ -136,5 +139,5 @@ export default function Astar (heuristicFct : Function , game : Taquin) : number
     }
   }
 
-  return [];
+  return new Pair<number,number[]>(numberOfChecks,[]);
 }
