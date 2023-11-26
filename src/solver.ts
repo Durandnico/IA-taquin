@@ -125,9 +125,9 @@ export default function Astar (heuristicFct : Function , game : Taquin) : Pair<n
         parent: target,
         move: move.first,
         heuristic_g: g_cost,
-        depth_h: target.depth_h + 1,
+        depth_h: target.f_cost,
         grid: move.second,
-        f_cost: target.depth_h + 1 + g_cost
+        f_cost: target.f_cost + g_cost
       };
 
       /* if move is already waiting to be check and this move is worst (f_cost higher) => dump and go brrrr*/
