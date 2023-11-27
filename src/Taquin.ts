@@ -224,7 +224,7 @@ export default class Taquin {
   /* ---------------------------------------------------------------------------------- */
 
   public isWin() : boolean {
-    if(this._grid[this._rows - 1][this._cols - 1] === 0)
+    if(this._grid[this._rows - 1][this._cols - 1] !== 0)
       return false;
 
     /* check if all the number are increasing */

@@ -16,10 +16,9 @@ const menu = await inquirer.prompt([
 
 
 async function setupManuel() {
-  let game : Taquin = new Taquin();
+  let game : Taquin = new Taquin([[6,4,7],[8,5,0],[3,2,1]]);
 
   game.render();
-  new TimeDiff(game.scramble, Taquin);
   while(!game.isWin())
   {
     await game.promptMove();
@@ -57,12 +56,8 @@ async function setupIa() {
   }
 
   console.log(fctH);
-  let game : Taquin = new Taquin([
-    [4,2,1],
-    [7,0,3],
-    [8,6,5]
-  ]);
-  game.scramble()
+  let game : Taquin = new Taquin([[6,4,7],[8,5,0],[3,2,1]]);
+  //game.scramble()
   if(fctH !== null) {
     const elapse = new TimeDiff<Pair<number, number[]>>(Astar, fctH, game);
     const result = elapse.value;
@@ -73,7 +68,7 @@ async function setupIa() {
     console.log('test Grid :');
     game.draw();
 
-    console.log('\t '+ fctName +' :\n\t\t- solution find in '+ elapse.time + 'ms\n\t\t- number of move check: ' + result.first + "\n\t\t- solution in " + result.second.length + " moves which are :\n\t\t" + result.second);
+    console.log('\t '+ fctName +' :\n\t\t- solution found in '+ elapse.time + 'ms\n\t\t- number of move check: ' + result.first + "\n\t\t- solution in " + result.second.length + " moves which are :\n\t\t" + result.second);
   }
     
   else {
@@ -90,8 +85,8 @@ async function setupIa() {
     console.log('Test Grid :');
     game.draw();
 
-    console.log('\t Hamming :\n\t\t- solution find in '+ elapseHmg.time + 'ms\n\t\t- number of move check: ' + hmg.first + "\n\t\t- solution in " + hmg.second.length + " moves which are :\n\t\t" + hmg.second);
-    console.log("\n\t Manhanttan :\n\t\t- solution find in "+ elapseHmt.time + "ms\n\t\t- number of move check: " + mht.first + "\n\t\t- solution in " + mht.second.length + " moves which are :\n\t\t" + mht.second+ "\n\n\t\t\t---------------------------\n"); 
+    console.log('\t Hamming :\n\t\t- solution found in '+ elapseHmg.time + 'ms\n\t\t- number of move check: ' + hmg.first + "\n\t\t- solution in " + hmg.second.length + " moves which are :\n\t\t" + hmg.second);
+    console.log("\n\t Manhanttan :\n\t\t- solution found in "+ elapseHmt.time + "ms\n\t\t- number of move check: " + mht.first + "\n\t\t- solution in " + mht.second.length + " moves which are :\n\t\t" + mht.second+ "\n\n\t\t\t---------------------------\n"); 
   }
 }
 
