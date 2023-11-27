@@ -90,7 +90,7 @@ export default function Astar (heuristicFct : Function , game : Taquin) : Pair<n
     /* find the smallest f_cost of the array (TODO : and smallest g_cost) */
     let target : Node = Array.from(toCheck.values())[0];
     for(let node of toCheck.values()) 
-      if(node.f_cost < target.f_cost) 
+      if(node.f_cost < target.f_cost || (node.f_cost === target.f_cost && node.depth_h < target.depth_h)) 
         target = node;
     
 
@@ -98,7 +98,6 @@ export default function Astar (heuristicFct : Function , game : Taquin) : Pair<n
     const id = hash(target.grid); 
     toCheck.delete(id);
     save.set(id, target);
-    console.log(id);
 
     for(let move of nextMoves(target.grid)) {
       const move_id: string = hash(move.second);
@@ -125,9 +124,9 @@ export default function Astar (heuristicFct : Function , game : Taquin) : Pair<n
         parent: target,
         move: move.first,
         heuristic_g: g_cost,
-        depth_h: target.f_cost,
+        depth_h: target.depth_h + 1,
         grid: move.second,
-        f_cost: target.f_cost + g_cost
+        f_cost: target.depth_h + 1 + g_cost
       };
 
       /* if move is already waiting to be check and this move is worst (f_cost higher) => dump and go brrrr*/
